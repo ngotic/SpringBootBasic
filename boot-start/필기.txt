@@ -1,0 +1,68 @@
+Gradle or Maven 중 뭘 선택할래? 
+
+Spring Boot 프로젝트 구조 
+1. src/main/java
+	- 이전과 동일 > 자바 소스 폴더 > 패키지 or 자바 
+	- com.test.start > BootStartApplication.java
+	
+	- BootStartApplication.java
+		- 스프링 부트의 메인 클래스 > main() 소유 역할
+		- 웹 서비스 시작하고, 끝내는 역할
+		- 프로젝트명 Application.java
+		
+2. src/main/resources
+	- static
+		- 정적 웹 자원 
+		- HTML, CSS, JavaScript, 이미지 등...
+		
+	- template
+		- View 파일
+		- views 폴더 역할
+		 
+	- application.properties
+		- 스프링 부트 설정 파일 
+		- web.xml. + root-context.xml + servlet-context.xml
+		
+	
+★ 얘는 main과 test가 끝이다. 그래서 여기다가 넣는다.
+★ 위치가 여기로 바뀐 것이다. 
+
+3. src/test/java
+	- JUnit 테스트 폴더
+	 
+4. JRE System Library
+	- JRE 
+
+5. Maven Dependencies 
+	- Maven
+	
+6. src
+	- 사용 잘 안함
+	
+7. pom.xml 
+	- POM 
+	
+8. mvnw.cmd
+	- 메이븐 실행 파일 
+	
+실행
+- src/main/resources > static > "hello.html"
+
+- STS4 > 플러그인 설치 
+
+톰켓 포트 변경하기
+- application.properties- 
+
+스프링 부트 애플리케이션 실행하기 
+1. Boot Dashboard
+	- local >프로젝트(boot-start) > 시작
+	- 톰켓을 따로 실행할 필요가 없고 스프링 부트에 내장된 것을 실행해야 한다.
+	- http://localhost:8092/hello.html 
+
+2. com.test.start > BootStartApplication.java
+	- Ctrl + F11 
+	
+
+Maven 빌드 및 실행 파일 생성 > 실행
+- mvnw.cmd
+- $ mvnw install 

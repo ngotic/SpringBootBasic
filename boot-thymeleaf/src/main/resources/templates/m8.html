@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<link rel="stylesheet" href="https://me2.do/5BvBFJ57">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- m8.html -->
+	<h1>Thymeleaf Links</h1>
+	<!-- 
+		Link URL Expressions
+		- @{}
+		- 링크의 URL 표현
+		a. 매개변수 처리 쉽다.
+		b. Context Root Path가 자동으로 삽입 
+		
+		http://localhost:8092/프로젝트명/m7
+		// 부트 만들때는 프로젝트명 저거 안써도 된다. 
+	 -->
+	 
+	 
+	 
+	 <div><a href="/m7">이전 페이지</a></div>
+	 <div><a href="/spring/m7">이전 페이지</a></div>
+	 
+	 <!-- root context를 붙여준다. -->
+	 <div><a th:href="@{/m7}">이전 페이지</a></div>
+	 <hr>
+	 <h3>QueryString, 매개변수</h3>
+	 <div>
+	 	<a href="/m7?seq=100">이전 페이지</a>
+	 	<a href="/m7?seq=${seq}">이전 페이지</a>
+	 	<a th:href="@{/m7(seq=${seq})}">이전 페이지</a>
+	 	
+	 	<a href="/m7?seq=100&mode=add">이전 페이지</a>
+	 	<a th:href="@{/m7(seq=${seq}, mode=${mode})}">이전 페이지</a>
+	 	
+	 </div>
+	 
+	 
+	 <!-- 
+	 	기본 앱(QueryString)
+	 	- /m7?seq=10
+	 	
+	 	REST(Path Variable)
+	 	- /m7/10
+	  -->
+	 
+	 <div>
+	 	<!-- 바인딩이 되버린다. -->
+	 	<a th:href="@{/m7/{seq}(seq=${seq})}">이전 페이지</a>
+	 	<a th:href="@{/m7/{mode}/{seq}(seq=${seq},mode=${mode})}">이전 페이지</a>
+	 </div>
+	 
+	 
+</body>
+</html>

@@ -1,0 +1,37 @@
+J2EE
+- Servlet, JSP 등.. 
+
+스프링 부트 + JSP
+
+템플릿 엔진 > JSP 역할(+EL, +JSTL) 이 역할은 다 구현이 되어 있다.  
+- FreeMarker
+- Groovy
+- Thymeleaf > 선택 
+- Mustache  > 이거 쓰는 사람도 꾀 있다.  
+- 등등 
+
+타임리프는 templates 밑에다가 만들어야 한다. 
+
+// 디펜턴씨가 있어야 한다. jsp가 돌 수 있는 기반이 없다. 그래서 jar 파일을 추가해야 한다. 
+pom.xml 의존성 2개 추가( 아래 부분을 추가해야 한다.)
+
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.apache.tomcat.embed</groupId>
+    <artifactId>tomcat-embed-jasper</artifactId>
+</dependency>
+
+application.propertis
+- ViewResolver 등록
+
+
+//jsp는 따로 만들어야 한다.
+
+src > main > "webapp" > "WEB-INF" > "views"
+
+
+페이지 작성 
+com.test.bootjsp.controller

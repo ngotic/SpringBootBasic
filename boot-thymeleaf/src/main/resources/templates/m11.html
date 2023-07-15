@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<link rel="stylesheet" href="https://me2.do/5BvBFJ57">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- m11.html -->
+	<h1>Thymeleaf Expression Basic Objects</h1>
+	<!-- /*
+		// 오브젝트는 #이 붙는다.
+		${#request}
+		${#response}
+		${#locale}
+		${session}         // 그냥 세션이 맞다. 컬랙션이라 그렇다.
+		${#servletContext}
+		
+		내장 객체로서 오브젝트가 존재하낟. 
+	*/-->
+	<div th:text="${#request}"></div>
+	<div th:text="${#response}"></div>
+	<div th:text="${#locale}"></div>
+	<div th:text="${#session}"></div>
+	<div th:text="${#servletContext}"></div>
+	
+	
+	<div th:if="${session.id != null}">
+		인증 : <span th:text="${session.id}">아이디</span>
+	</div>
+	
+	<div th:unless="${session.id != null}">미인증</div>
+	
+</body>
+</html>

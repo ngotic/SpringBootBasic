@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://me2.do/5BvBFJ57">
+</head>
+<style>
+	body { margin-bottom:30px;}
+</style>
+<body>
+	<h1>Thymeleaf<small>단일값 출력</small></h1>
+	<!-- 
+		Thymeleaf Standard Expression, 타임리프 표현식이 있다.
+		
+		1. Variable Expression, 변수 표현식 
+			- ${}
+			- 컨트롤러 > 전달된 값 > 출력하는 역할
+			
+		* 우리가 쓰던 ER과 같다. 	
+			
+		2. Selection Variable Expression, 선택 변수 표현식
+			- *{}
+			- 객체/맵 프로퍼티  > 출력 
+			- th:object 속성과 같이 사용
+			
+		3. Message Expression, 메세지 표현식
+			- #{}
+			- 스프링 메세지 > 전용 출려
+			
+		4. Link URL Expression, 링크 주소 표현식 
+			` @{}
+			- 링크의 URL > 전용 출력
+			
+		5. Fragment Expression, 조각 표현식
+			- ~{}
+			- 조각 페이지 삽입(include 지시자 or 타일즈 > 유사 ) 
+			타임리프 > th:XXX 옆엔 속성이다. 
+			
+	 -->
+	 <h2>변수 표현식</h2>
+	 <div>${num}</div>
+	 
+	 <div>10</div>
+	 
+	 <div th:text="${num}">24000</div>
+	 <div th:text="${num}">200</div>
+	 <div th:text="100"></div>
+	 <!-- th 접두어가 붙어야 한다. 
+	 클라이언트가 작업하던걸 그대로 넘겨도 쓸 수 있다. 
+	 
+	 <div>200</div>
+	 이렇게 넘겨줘도 아래처럼 값을 넣으면 된다.  
+	 <div th:text="${num}">200</div>
+	 // 기존걸 그대로 방치해도 된다 정도의 차이가 있다. 
+	 -->
+	 
+	 <h2>타입별</h2>
+	 <div>숫자 : 100</div>
+	 <div th:text="${num}">숫자 : </div>
+	 
+	 <div>숫자 : <span th:text="${num}"></span></div>
+	 <div>문자 : <span th:text="${txt}"></span></div>
+	 <div>객체 : <span th:text="${dto}"></span></div>
+	 <div>멥 : <span th:text="${map}"></span></div>				
+	 
+	 <h2>복합 데이터(객체, 맵) 프로퍼티</h2>
+	 
+	 <!-- 변수 표현식 -->
+	 <div>제목 : <span th:text="${dto.getSubject()}"></span></div>
+	 <div>제목 : <span th:text="${dto.subject}"></span></div>
+	 <div>아이디 : <span th:text="${dto.id}"></span></div>
+	 <div>날짜 : <span th:text="${dto.regdate}"></span></div>
+	 
+	 <!-- 선택 변수 표현식 앞에 : 부분을 생략한다. 반복되면 이득이다. -->
+	 <div th:object="${dto}">
+	 	<!-- <div>제목 : <span th:text="*{dto.subject}"></span></div> -->
+	 	<div>제목 : <span th:text="*{subject}"></span></div>
+	 	<div>아이디 : <span th:text="*{id}"></span></div>
+	 	<div>날짜 : <span th:text="*{regdate}"></span></div>
+	 </div>
+	 
+	 <div th:text="${map.get('dog')}"></div>
+	 <div th:text="${map.dog}"></div>
+	 <div th:text="${map.cat}"></div>
+	 
+	 <div th:object="${map}">
+	 	<div th:text="*{dog}"></div>
+	 	<div th:text="*{cat}"></div>
+	 </div>
+	 
+	 <h2>다국어 지원<small>스프링 메세지</small></h2>
+	 <div class="message" title="사용 언어" th:text="#{language}"></div>
+	 
+	 <div class="message" title="상품">
+	 	<div>상품명 : <span th:text="#{item.name}"></span></div>
+	 	<div>색상 : <span th:text="#{item.color}"></span></div>
+	 	<div>가격 : <span th:text="#{item.price}"></span></div>
+	 </div>
+	 
+	 <div th:text="#{hello('홍길동')}"></div>
+	 <div th:text="#{hello(#{item.name})}"></div>
+	 
+</body>
+</html>
+
+
+

@@ -1,0 +1,15 @@
+
+
+
+파일 생성
+- com.test.mybatis
+- com.test.mybatis.controller > 스캔 필요(X)
+- "com.test.controller" > servlet-context.xml(X)
+
+- com.test.controller > MyBatisController.java
+- com.test.mapper     > MyBatisMapper.java
+
+- src/main/resources 
+	> "com" > "test" > "mapper" > "MyBatisMapper.xml"
+	
+	

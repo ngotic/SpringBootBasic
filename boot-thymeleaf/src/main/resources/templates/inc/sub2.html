@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<body>
+
+	<!-- sub2.html -->
+	<div th:fragment="part">조각 페이지2</div>
+	<div th:fragment="part2">조각 페이지3</div>
+	<div th:fragment="owner(name, tel)">
+		<div>소유주 : <span th:text="${name}"></span></div>
+		<div>연락처 : <span th:text="${tel}"></span></div>
+	</div>
+</body>
+</html>

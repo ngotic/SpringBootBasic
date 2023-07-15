@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<link rel="stylesheet" href="https://me2.do/5BvBFJ57">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>Thymeleaf Condition</h1>
+	<!-- 
+		1. th:if
+		
+		2. th:switch
+	 -->
+	 <h2>if</h2>
+	 
+	 <div th:if="${num1 > 0}">num1 : 양수</div>
+	 <div th:if="${num2 < 0}">num2 : 양수</div>
+	 
+	 <div th:if="${num1 > 0}">
+	 	<span th:text="'양수' + ${num1} + '입니다.'"></span>
+	 </div>
+	 
+	 <!-- 조건을 만족못하면 테그 자체가 사라진다. 조건을 만족하면 태그가 만들어진다. -->
+	 <div th:if="${num1 > 0}" th:text="'양수' + ${num1} + '입니다.'"></div>
+	 
+	 <div th:if="${num1 > 0}" th:text="|양수 + ${num1} + 입니다.|"></div>
+	 <div th:if="${num1 > 0}">양수 [[${num1}]]입니다.</div>
+	 <hr>	 
+	 <div th:if="${num1 > 0}">양수</div>
+	 <div th:unless="${num1 > 0}">음수</div>
+	 <!-- 이걸 만족하지 못했을 때 실행된다. -->
+	 <hr>
+	 
+	 <h2>switch</h2>
+	 
+	 <div th:switch="${mode}">
+	 	<div th:case="add">추가하기</div>
+	 	<div th:case="remove">삭제하기</div>
+	 	<div th:case="*">기타</div>
+	 </div>
+	 
+</body>
+</html>

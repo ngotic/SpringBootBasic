@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.mapper.ThymeleafMapper">
+	<select id="getNum" resultType="Integer">
+		select salary from employees where rownum=1
+	</select>
+	
+	<select id="getTxt" resultType="String">
+		select first_name from employees where rownum = 1
+	</select>
+	
+	<!-- application.properties에서 typeAlias를 지정해서 패키지명을 생략한 것이다.  -->
+	<!-- mybatis-config.xml에 엘리아스를 지정해서 가능하다. -->
+	<select id="getDTO" resultType="dto">
+		select * from tblBoard where rownum = 1 
+	</select>
+	
+	<select id="getNames" resultType="String">
+		
+		select first_name from employees where rownum &lt;= 10
+		
+	</select>
+	
+	
+	<select id="getList" resultType="dto">
+		select * from tblBoard
+	</select>
+</mapper>

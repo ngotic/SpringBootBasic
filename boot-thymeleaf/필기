@@ -1,0 +1,14 @@
+Spring Boot + MyBatis + Thymeleaf
+
+
+1. MyBatis 
+	- application.properties
+	
+2. Thymeleaf 
+	- application.properties
+
+3. 테스트
+	- "com.test.controller" > ThymeleafController.java
+	- "com.test.mapper" > ThymeleafMapper.java
+	- src/main/resources > com > test >mapper > ThymeleafMapper.xml
+	

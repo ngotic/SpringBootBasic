@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<link rel="stylesheet" href="https://me2.do/5BvBFJ57">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Spring Boot<small>JPA</small></h1>
+	
+	<div th:text="${bool}"></div>
+	
+	<div th:text="${count}"></div>
+	
+	<div class="message" title="결과">
+		<!-- 다른애 도움없이 얘 혼자 쓸 수 있다. -->
+		<th:block th:if="${result != null}">
+		
+			<div th:text="${result != null}"></div>
+			<div th:text="${result.name}"></div>
+			<div th:text="${#numbers.formatInteger(result.price, 0, 'COMMA')}"></div>
+			<div th:text="${result.color}"></div>
+			<div th:text="${result.owner}"></div>
+			<div th:text="${result.orderdate}"></div>
+			
+		</th:block>
+	</div>
+	
+	<hr>
+	
+	<table class="vertical" th:if="${list != null}">
+		<tr>
+			<th>이름</th>
+			<th>가격</th>
+			<th>색상</th>
+			<th>소유자</th>
+			<th>주문날짜</th>
+		</tr>
+		
+		
+		<tr th:each="item : ${list}">
+			<td th:text="${item.name}"></td>
+			<td th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')}"></td>
+			<td th:text="${item.color}"></td>
+			<td th:text="${item.owner}"></td>
+			<td th:text="${item.orderdate}"></td>
+		</tr>
+		
+	</table>
+	
+</body>
+</html>

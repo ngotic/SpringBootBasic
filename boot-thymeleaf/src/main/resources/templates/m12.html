@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<link rel="stylesheet" href="https://me2.do/5BvBFJ57">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- m12.html -->
+	<h1>Thymeleaf Fragment</h1>
+	
+	<h2>insert</h2>
+	<div th:insert="~{inc/sub.html}"></div>
+	
+	<!-- insert replace 차이 -->
+	
+	<h2>replace</h2>
+	<div th:replace="~{inc/sub.html}"></div>
+	<hr>
+	
+	<!-- 확장자 생략이 돤다, -->
+	<div th:insert="~{inc/sub}"></div>
+	
+	<!-- ~{} 생략 가능 > 비권장 -->
+	<div th:insert="inc/sub"></div>
+	
+	<div th:insert="inc/sub2.html :: part">조각 페이지2</div>
+	<div th:insert="inc/sub2.html :: part2">조각 페이지3</div>
+	
+	<hr>
+	
+	<div th:insert="~{inc/sub2::owner('아무개', '010-3333-4444')}"></div>
+	<div th:insert="~{inc/sub2::owner('테스트', '010-3333-4444')}"></div>
+</body>
+</html>
