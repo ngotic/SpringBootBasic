@@ -16,8 +16,7 @@
 C:/Program Files/Java/jdk-11/bin/javaw.exe
 ```
 * 이후에 lombok.jar 설치 필요 
-  * lombok.jar이 있는 폴더에서 java -jar lombo.jar 실행해서 
-  * 해당 SpringToolSuite4.exe 위치로 install 
+  * lombok.jar이 있는 폴더에서 java -jar lombok.jar 실행해서 해당 SpringToolSuite4.exe 위치로 install 하기
 
 * 스프링 부트 
   * 스프링 애플리케이션 제작 기술
@@ -112,5 +111,116 @@ import > Maven > Existing Maven Projects로 불러오고 Root Directory를 잘 �
 * FreeMarker, Groovy, Thymeleaf, Mustache 등이 있다. 
 * templates 폴더에다가 이와 관련 파일을 만들어서 사용해야 한다. 
 
+
+## Spring Boot + MyBatis
+* 프로젝트 셋팅
+* New > Spring Starter Project
+```
+Name > boot-mybatis
+Type > Maven
+Packaging > Jar
+Java Version > 11
+Language > Java
+Group > com.test
+Artifact > boot-mybatis
+Package > com.test.mybatis
+Spring boot version > 2.7.13
+Spring Web, Oracle Driver, Mybatis Framework, Lombok
+★ 보통은 Boot Devtools, Spring Web, Lombok 정도는 거의 필수급이다. 
+```
+* 뷰단은 JSP로 pom에 의존성 2개 추가
+* application.properties 설정
+* 아래 설정은 interface mapper 기준이다.
+```
+# 서버 포트 번호
+server.port = 8092
+
+# JSP View Resoler, webapp, WEB-INF 폴더가 없는데 만들어야함
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+
+# HikariCP settings > 별다른 dependency 필요없음
+spring.datasource.hikari.minimumIdle=5
+spring.datasource.hikari.maximumPoolSize=20
+spring.datasource.hikari.idleTimeout=30000
+spring.datasource.hikari.maxLifetime=2000000
+spring.datasource.hikari.connectionTimeout=30000
+
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
+spring.datasource.username=hr
+spring.datasource.password=java1234
+
+# MyBatis> 이건 처음했던 방식이다. 근데 우리는 두번째 방식 쓸거
+# mybatis.mapper-locations=classpath:mapper/*.xml
+```
+
+* BootMyBatisApplication
+  * Boot는 Component Scan을 여기다가 해줘야 한다. 
+  * Mapper Scan도 해준다. 
+  * ComponentScan, MapperScan
+```
+@SpringBootApplication
+@ComponentScan(basePackages = {"com.test.controller"} )
+@MapperScan(basePackages= {"com.test.mapper"})
+public class BootMybatisApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(BootMybatisApplication.class, args);
+	}
+}
+```
+
+* src/main/resources 폴더에
+  * com/test/mapper 폴더 만들고 MyBatisMapper.xml 생성
+  * 앞에 폴더이름은 자바코드에서 패키지명과 동일하게 
+  
+* Interface Mapper 
+```
+public interface MyBatisMapper {
+	public String time();
+}
+```
+
+* Controller 
+```
+@Controller
+public class MyBatisController {
+
+    @Autowired 
+	private MyBatisMapper mapper;
+	//http://localhost:8092/ex01.do
+	@GetMapping("/ex01.do")
+	public String ex01(Model model) {
+        String time = mapper.time();
+		model.addAttribute("time", time);
+		return "ex01";
+	}
+}
+```
+* JSP단 
+  * src/main/webapp/WEB-INF/views/ex01.jsp
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://me2.do/5BvBFJ57">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- localhost:8092 -->
+	<h1>Spring Boot</h1>
+	<!-- test.jsp -->
+	<div>${time}</div>
+</body>
+</html>
+```
+
 ## Thymeleaf 정리
-* 관련 프로젝트 boot-thymeleaf
+* 관련 프로젝트 boot-thymeleaf > 다른 곳에 정리
+
+## JPA 
+* 관련 프로젝트 boot-jpa > 다른 곳에 정리할 듯
+

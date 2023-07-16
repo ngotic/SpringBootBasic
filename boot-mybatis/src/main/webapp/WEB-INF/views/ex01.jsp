@@ -10,7 +10,6 @@
 <body>
 <!-- localhost:8092 -->
 	<h1>Spring Boot</h1>
-	<!-- test.jsp -->
-	<div>${name}</div>
+	<div>${time}</div>
 </body>
 </html>

@@ -17,9 +17,7 @@
 	</select>
 	
 	<select id="getNames" resultType="String">
-		
 		select first_name from employees where rownum &lt;= 10
-		
 	</select>
 	
 	
