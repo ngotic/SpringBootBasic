@@ -18,9 +18,7 @@
 		http://localhost:8092/프로젝트명/m7
 		// 부트 만들때는 프로젝트명 저거 안써도 된다. 
 	 -->
-	 
-	 
-	 
+	
 	 <div><a href="/m7">이전 페이지</a></div>
 	 <div><a href="/spring/m7">이전 페이지</a></div>
 	 
@@ -35,10 +33,7 @@
 	 	
 	 	<a href="/m7?seq=100&mode=add">이전 페이지</a>
 	 	<a th:href="@{/m7(seq=${seq}, mode=${mode})}">이전 페이지</a>
-	 	
 	 </div>
-	 
-	 
 	 <!-- 
 	 	기본 앱(QueryString)
 	 	- /m7?seq=10
@@ -46,13 +41,11 @@
 	 	REST(Path Variable)
 	 	- /m7/10
 	  -->
-	 
 	 <div>
 	 	<!-- 바인딩이 되버린다. -->
 	 	<a th:href="@{/m7/{seq}(seq=${seq})}">이전 페이지</a>
 	 	<a th:href="@{/m7/{mode}/{seq}(seq=${seq},mode=${mode})}">이전 페이지</a>
 	 </div>
-	 
 	 
 </body>
 </html>

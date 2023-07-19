@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true 
+      force: true
+      
+spring:  datasource:
+    driver-class-name : com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/security?serverTimezone=Asia/Seoul
+    username: cos
+    password: cos1234
+    
+#  안넣어도 된다. 왜냐면 우리가 mustache를 사용하겠다고 의존성을 등록하면 자동으로 이 경로가 기본으로 잡힌다. 
+#  그래서 이 설정을 생략한다.
+#  mvc :  
+#    view :
+#      prefix: /templates/
+#      suffix : .mustache 
+      
+  jpa:
+    hibernate :
+      ddl-auto: create #create update none
+      naming :
+        physical-strategy : org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true  

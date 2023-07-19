@@ -21,12 +21,21 @@ public class ThymeleafController {
 	@Autowired
 	private ThymeleafMapper mapper;
 	
+//	@GetMapping("/m1")
+//	public void m1() {
+//		
+//		// 요청 메소드의 반환값 > void > m1.jsp 호출 
+//		// 요청 메소드의 반환값 > void > m1.html 호출
+//		System.out.println("m1");
+//	}
+	
 	@GetMapping("/m1")
-	public void m1() {
+	public String m1() {
 		
 		// 요청 메소드의 반환값 > void > m1.jsp 호출 
 		// 요청 메소드의 반환값 > void > m1.html 호출
 		System.out.println("m1");
+		return "m1";
 	}
 	
 	/*
@@ -82,21 +91,21 @@ public class ThymeleafController {
 		return "m5";
 	}
 	
+	//- '<' -> &lt;
+	//- '>' -> &gt;
+	
 	@GetMapping("/m6")
 	public String m6(Model model) {
 		String name = mapper.getTxt();
 		BoardDTO dto = mapper.getDTO();
-		String txt = "안녕하세요. <i>홍길동</i> 입니다.";
+		String txt = "안녕하세요. &lt;i&gt;홍길동</i> 입니다.";
 		int num = 100;
-		
 		List<String> names = mapper.getNames();
-		
 		model.addAttribute("name", name);
 		model.addAttribute("dto", dto);
 		model.addAttribute("txt", txt);
 		model.addAttribute("num", num);
 		model.addAttribute("names", names);
-		
 		return "m6";
 	}
 	@GetMapping("/m7")
@@ -107,7 +116,6 @@ public class ThymeleafController {
 		model.addAttribute("num1",num1);
 		model.addAttribute("num2",num2);
 		model.addAttribute("now",now);
-		
 		return "m7";
 	}
 	
@@ -143,7 +151,7 @@ public class ThymeleafController {
 	@GetMapping("/m11")
 	public String m11(HttpSession session) {
 		session.setAttribute("id", "hong");
-		session.invalidate();
+		// session.invalidate();
 		return "m11";
 	}
 

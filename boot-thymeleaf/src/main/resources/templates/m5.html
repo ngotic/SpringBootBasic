@@ -29,12 +29,13 @@
 	 <div>${name}</div>
 	 <div th:text="${name}"></div>
 	 
-	 <input type="text" name="age">    <!-- 이건 정적 -->
-	 <input type="text" th:name="age"> <!-- 이건 타임리프가 손을 대서 만듬 -->
+	 <input type="text" name="age">     <!-- 이건 정적 -->
+	 <input type="text" th:name="age">  <!-- 이건 타임리프가 손을 대서 만듬 -->
 	 <input type="text" name="${name}"> <!-- 이건 타임리프 속성이라 안된다. -->
 	 <input type="text" th:name="${name}"> <!-- 이건 타임리프 속성이다. -->
 	 <input type="text" th:name="${name}" th:size="${size}">  
-	<input type="text" th:value="${color}">
+	 <input type="text" th:value="${color}">
+	 
 	<hr>
 	
 	<div class="one">Box 1</div>
@@ -44,16 +45,13 @@
 	<!-- 이미 클래스가 있는데 또다른 클래스 붙이는데 원래 안되는데 타임리프로 하면?  -->
 	<div class="one" th:attrappend="class=' two'">Box 4</div>
 	<div class="one" th:attrprepend="class='two '">Box 5</div>
-	
-	
 	<div class="one" th:classappend="two">Box 6</div>
 	
 	<input type="checkbox" name="cb" th:checked="true">
 	<input type="checkbox" name="cb" th:checked="false">
 	
-	
 	<div th:style="'background-color:' +${color}">Box 7 </div> 
-	<div th:style="|background-color: ${color}|">Box 7 </div>
+	<div th:style="|background-color:${color}|">Box 7 </div>
 	
 </body>
 </html>

@@ -21,9 +21,8 @@
 	<div th:text="${#request}"></div>
 	<div th:text="${#response}"></div>
 	<div th:text="${#locale}"></div>
-	<div th:text="${#session}"></div>
+	<div th:text="${session}"></div>
 	<div th:text="${#servletContext}"></div>
-	
 	
 	<div th:if="${session.id != null}">
 		인증 : <span th:text="${session.id}">아이디</span>

@@ -17,7 +17,7 @@
 			- ${}
 			- 컨트롤러 > 전달된 값 > 출력하는 역할
 			
-		* 우리가 쓰던 ER과 같다. 	
+		* 우리가 쓰던 EL과 같다. 	
 			
 		2. Selection Variable Expression, 선택 변수 표현식
 			- *{}
@@ -74,7 +74,7 @@
 	 
 	 <!-- 선택 변수 표현식 앞에 : 부분을 생략한다. 반복되면 이득이다. -->
 	 <div th:object="${dto}">
-	 	<!-- <div>제목 : <span th:text="*{dto.subject}"></span></div> -->
+	 	<div>제목 : <span th:text="${dto.subject}"></span></div> 
 	 	<div>제목 : <span th:text="*{subject}"></span></div>
 	 	<div>아이디 : <span th:text="*{id}"></span></div>
 	 	<div>날짜 : <span th:text="*{regdate}"></span></div>

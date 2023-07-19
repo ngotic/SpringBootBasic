@@ -7,19 +7,21 @@
 </head>
 <body>
 	<h1>Thymeleaf</h1>
+	
 	<!--  
 		타임리프 연산자
 		- 산술 연산자 > 동일
 		- 비교 연산자 > 동일 + 영문 표현 제공
 		- 논리 연산자 > 동일 + 영문 표현 제공
-		
 	 -->
-	
+	 
 	<div>10 + 3 = 13</div>
 	<div><span th:text="${a}"></span> + <span th:text="${b}"></span> = <span th:text="${ a + b }"></span></div>
-	<!-- 문자열 연산과 산술 연산을 헀다.  -->
 	<div th:text="${a + ' + ' + b + ' = ' + ( a + b )}"></div>
 	<div th:text="${a} + ' + ' + ${b} + ' = ' + ${ a + b }"></div>
+	<!-- 문자열 연산과 산술 연산을 헀다.  -->
+	
+	<div th:text="홍길동"></div>
 	<div th:text="|홍길동|"></div>
 	<div th:text="|${a}|"></div>
 	<!-- 이러면 || 안에 있는거 문자열로 취급한다. 템플릿 스트링 느낌 -->
@@ -35,6 +37,9 @@
 	
 	<hr>
 	
+	<div th:text="${a > b}"></div>
+	<!-- 이방식으로 하나 아래 방식으로 하나 같다.  -->
+	<div> ---- </div> 
 	<div th:text="${a} > ${b}"></div>
 	<div th:text="${a} >= ${b}"></div>
 	<div th:text="${a} < ${b}"></div>
@@ -44,19 +49,16 @@
 	
 	<hr>
 	
-	<div th:text="${a > 5} and ${b < 10}"></div>
-	<div th:text="${a > 5} or ${b < 10}"></div>
-	
-	<hr>
-	
-	<div th:text="{a > 0} ? '양수' : '음수'"></div>
+	<div th:text="${a > 5} and  ${b < 10}"></div>
+	<div th:text="${a > 5} or  ${b < 10}"></div>
+	<div th:text="${a > 0} ? '양수' : '음수'"></div>
+	<div th:text="${a > 0 ? '양수' : '음수'}"></div>
 	<hr>
 	
 	<div th:text="${c} != null ? ${c} : '데이터가 없음'" ></div>
 	<div th:text="${c} ? ${c} : '데이터 없음'" ></div>
 	<div th:text="${c} ?: '데이터 없음'"></div> 
 	<!-- Elvis 연산자 --> <!-- 위에 세개 다 똑같은 문장이다. 아래것만 기억하자 -->
-	
 	<div th:text="${c} ?:_">데이터 없음</div><!-- No Operation -->
 	
 </body>

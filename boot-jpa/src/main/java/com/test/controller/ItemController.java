@@ -28,23 +28,18 @@ public class ItemController {
 	
 	@GetMapping("/item/m1")
 	public String m1(Model model) {
-		
 		System.out.println("m1");
-		
 		//[C]RUD
 		// - 레코드 추가하기 
-		
 		Item item = new Item();
 		item.setName("잉크젯 프린터");
 		item.setPrice(250000);
 		item.setColor("yellow");
 		item.setOwner("홍길동");
-		
 		// save > (JPA) > insert
 		Item result = itemRepo.save(item);
 		// Hibernate: insert into item (color, orderdate, owner, price, name) values (?, ?, ?, ?, ?)
 		// orderdate date default sysdate not null > db엔 이렇게 되어 있다. 
-		
 		model.addAttribute("result", result);
 		
 		return "item/result";
@@ -57,18 +52,13 @@ public class ItemController {
 	
 	@GetMapping("/item/m2")
 	public String m2(Model model) {
-		
 		System.out.println("m2");
-		
 		//[C]RUD
 		// - 레코드 추가하기 
-		
 		//빌더 패턴(Builder Pattern)
 		// 생성자 패턴, 빌더 패턴 
 		// - OOP에서 겍체를 생성하는 패턴 중 하나
-		Item item2 = new Item(null, 0, null, null, null);
-		
-		
+		Item item2 = new Item(null, 0, null, null, null);		
 		// 얘는 멤버를 자유롷게 넣을 수 있어서 필요없으면 뺴고 안넣어도 된다. 가독성있다.
 		Item item = Item.builder()
 				.name("레이저 프린터")
@@ -76,15 +66,11 @@ public class ItemController {
 				.color("black")
 				.owner("아무개")
 				.build();
-
-		
 		// save > (JPA) > insert
 		Item result = itemRepo.save(item);
 		// Hibernate: insert into item (color, orderdate, owner, price, name) values (?, ?, ?, ?, ?)
 		// orderdate date default sysdate not null > db엔 이렇게 되어 있다. 
-		
 		model.addAttribute("result", result);
-		
 		return "item/result";
 	}
 	
@@ -92,36 +78,35 @@ public class ItemController {
 	public String m3(Model model) {
 		//C[R]UD
 		// - 단일 레코드 읽기
-		
-		
 //		select item0_.name as name1_0_0_, item0_.color as color2_0_0_, item0_.orderdate as orderdate3_0_0_, item0_.owner as owner4_0_0_, item0_.price as price5_0_0_ from item item0_ where item0_.name=?
 //				Hibernate: select item0_.name as name1_0_0_, item0_.color as color2_0_0_, item0_.orderdate as orderdate3_0
-		// 내무적으로 쿼리로 동작한다. 메소드사 더이상 안쓰인다. 
-		
-		
-		
-		//Item item = itemRepo.getById("마우스"); // 얘는 더이상 안쓰임
-		//model.addAttribute("result", item);
-		Optional<Item> item = itemRepo.findById("프린터"); // ★ 얘는 가장 많이 쓰인다. 레코드 찾을 때
-		System.out.println(item.isPresent());
-		model.addAttribute("result", item.get());
+		// 내부적으로 쿼리로 동작한다. 메소드가 더이상 안쓰인다. 
+		Item item = itemRepo.getById("마우스"); // 얘는 더이상 안쓰임
+		model.addAttribute("result", item);
+//		Optional<Item> item = itemRepo.findById("프린터"); // ★ 얘는 가장 많이 쓰인다. 레코드 찾을 때
+//		System.out.println(item.isPresent());
+//		model.addAttribute("result", item.get());
 		return "item/result";
 	}
 	
+	
+	
+	//업데이트 
+//	Item item = Item.builder()
+//				.name("프린터") // 조건절
+//				.price(230000) 
+//				.color("white")
+//				.owner("홍길동")
+//				.build();
+	// 수정에 관련한 메서드가 없다. 
+//	Item result = itemRepo.save(item); // 이게 수정이다.
+	// 업데이트가 되는데 셀렉트도 되어있다. 이걸
+	// insert 해야하는지 업데이트 해야하는지 판단하려고 있는 것 
+	
+	
 	@GetMapping("/item/m4")
 	public String m4(Model model) {
-		//업데이트 
-//		Item item = Item.builder()
-//					.name("프린터") // 조건절
-//					.price(230000) 
-//					.color("white")
-//					.owner("홍길동")
-//					.build();
-		// 수정에 관련한 메서드가 없다. 
-//		Item result = itemRepo.save(item); // 이게 수정이다.
-		// 업데이트가 되는데 셀렉트도 되어있다. 이걸
-		// insert 해야하는지 업데이트 해야하는지 판단하려고 있는 것 
-	
+
 		Optional<Item> item = itemRepo.findById("프린터");
 		
 		if(item.isPresent()) {
@@ -130,7 +115,6 @@ public class ItemController {
 			model.addAttribute("result", result);
 		}
 		
-		
 		return "item/result";
 	}
 	
@@ -138,7 +122,7 @@ public class ItemController {
 	@GetMapping("/item/m5")
 	public String m5(Model model) {
 		//CRU[D]
-		Optional<Item> item = itemRepo.findById("노트북");
+		Optional<Item> item = itemRepo.findById("프린터");
 		itemRepo.delete(item.get());
 		
 		return "item/result";
@@ -152,7 +136,6 @@ public class ItemController {
 		// 다중 레코드 조회
 		List<Item> list = itemRepo.findAll();
 		model.addAttribute("list", list);
-		
 		return "item/result";
 	}
 	
@@ -178,17 +161,14 @@ public class ItemController {
 	@GetMapping("/item/m9")
 	public String m9(Model model) {
 		//findByName으로 자동으로 구현 
-		
 		// Item item = itemRepo.findByName("마우스");
 		// Item item = itemRepo.findByPrice(100000);
 		// 메서드 이름 패턴이 중요하다. 
 		// 가장 중요하게 생각하는 패턴이 > findBy이다. 
-		
 		// findBy컬럼명
 		// - By : Po
 		//Item item = itemRepo.findByNameIs("키보드");
 		Item item = itemRepo.findByNameEquals("키보드");
-		
 		model.addAttribute("result", item);
 		return "item/result";
 	}
@@ -211,34 +191,24 @@ public class ItemController {
 	public String m11(Model model) {
 		
 		//List<Item> list = itemRepo.findByColor("white");
-		
 		//List<Item> list= itemRepo.findByColor("white", Sort.by(Sort.Direction.ASC, "price"));
-		
 		//color를 조건 price를 기준으로 order by를 했다.
-		
 		//List<Item> list= itemRepo.findByColorAndPrice("yellow", 95000);
-		
 		//List<Item> list= itemRepo.findByColorOrOwner("white", "홍길동");
-		
 		//- findByNameLike()
 		//- findByNameIsLike()
-		
 		//- findByNameNotLike()  // 이거 빼고 찾아줘 ~ 
 		//- findByNameIsNotLike()
-				
 		
 		//- %, _를 직접 명시 
 		//List<Item> list= itemRepo.findByNameLike("키보드");
 		//List<Item> list= itemRepo.findByNameLike("%키보드");
-		
 		// - findByName[Is]StartingWith
 		// - findByName[Is]EndingWith
 		// - findByName[Is]Containing
-		
-		List<Item> list= itemRepo.findByNameEndingWith("마우스");
-		
+		List<Item> list= itemRepo.findByNameStartingWith("마우스");
+		//List<Item> list= itemRepo.findByNameEndingWith("마우스");
 		model.addAttribute("list", list);
-		
 		return "item/result";
 	}
 		
@@ -275,7 +245,7 @@ public class ItemController {
 		
 		// List<Item> list = itemRepo.findByPriceGreaterThan(100000, Sort.by("price"));
 		
-		//List<Item> list = itemRepo.findByPriceLessThan(100000, Sort.by("price"));
+		// List<Item> list = itemRepo.findByPriceLessThan(100000, Sort.by("price"));
 		
 		// List<Item> list = itemRepo.findByPriceBetween(90000, 120000);
 		
@@ -316,13 +286,10 @@ public class ItemController {
 		
 		System.out.println(result);
 		model.addAttribute("result", result);
-		
 		// item/m13?name=키보드
-		
 		//"마우스" > PK  
 		// Optional<Item> result = itemRepo.findById(name);
 		// model.addAttribute("result", result.get()); // Optional은 꺼내야 한다.
-		
 		
 		return "item/result";
 	}
@@ -349,8 +316,10 @@ public class ItemController {
 		// Item result = itemRepo.findTopByOrderByPriceAsc();
 		
 		List<Item> list = itemRepo.findTop3ByOrderByPriceDesc();
+		//List<Item> list = itemRepo.findFirst3ByOrderByPriceDesc();
 		
 		model.addAttribute("list", list);
+		//model.addAttribute("result", result);
 		
 		return "item/result";
 	}
@@ -373,7 +342,6 @@ public class ItemController {
 		//@Query 
 		// - 사용자 쿼리 작성
 		// - 쿼리 메소드 키워드로 작성 불가능 쿼리 > 직접 SQL 작성 
-		
 		// select * from Item 
 		
 		List<Item> list = itemRepo.findAllItem(); // 메서드 이름이 중요하지 않다. 쿼리를 내맘대로 짠다. 쿼리를 내가 만든다. 

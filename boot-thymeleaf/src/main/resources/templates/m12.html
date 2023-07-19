@@ -8,12 +8,9 @@
 <body>
 	<!-- m12.html -->
 	<h1>Thymeleaf Fragment</h1>
-	
 	<h2>insert</h2>
 	<div th:insert="~{inc/sub.html}"></div>
-	
 	<!-- insert replace 차이 -->
-	
 	<h2>replace</h2>
 	<div th:replace="~{inc/sub.html}"></div>
 	<hr>
@@ -23,10 +20,8 @@
 	
 	<!-- ~{} 생략 가능 > 비권장 -->
 	<div th:insert="inc/sub"></div>
-	
-	<div th:insert="inc/sub2.html :: part">조각 페이지2</div>
-	<div th:insert="inc/sub2.html :: part2">조각 페이지3</div>
-	
+	<div th:insert="inc/sub2.html :: part"></div>
+	<div th:insert="inc/sub2.html :: part2"></div>
 	<hr>
 	
 	<div th:insert="~{inc/sub2::owner('아무개', '010-3333-4444')}"></div>

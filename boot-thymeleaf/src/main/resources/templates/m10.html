@@ -9,17 +9,26 @@
 	<h1>Thymeleaf Iterations</h1>
 	<h2>each</h2>
 	
+	
+
 	<ul>
 		<li th:each="name : ${names}" th:text="${name}">이름</li>
 	</ul>
 	
+	
 	<ul>
-		<li th:each="name : ${names}" ><span th:text="${name}"></span></li>
+		<li th:each="name : ${names}" >
+			<span th:text="${name}"></span>
+		</li>
 	</ul>
-	하하
-	<ul th:each="name: ${name}">
+	
+	---------------------------------------------------------------
+	
+	<ul th:each="name: ${names}">
 		<li th:text=${name}></li>
 	</ul>
+	<!-- 태그에 바로 쓸 수 있고 자식태그에다가 쓸 수 있고 선택이다. -->
+	
 	<ul>
 		<li th:each="dto : ${list}" th:text="|${dto.subject}(${dto.id})|"></li> 
 	</ul>
@@ -28,10 +37,8 @@
 			<span th:text="*{subject}"></span>
 		</li>
 	</ul>
-	
 	<ul>
-		<li th:each="dto : ${list}" th:object="${dto}">
-			<span th:text="|${subject}(${id})|"></span>
+		<li th:each="dto : ${list}" th:object="${dto}" th:text="*{subject}">
 		</li>
 	</ul>
 	
@@ -48,19 +55,27 @@
 			<th></th>
 			<th></th>
 		</tr>
+		<!-- 콤마로 두개 가능  -->
 		<tr th:each="dto, status : ${list}">
 			<td th:text="${dto.seq}"></td>
 			<td th:text="${dto.id}"></td>
 			<td th:text="${dto.subject}"></td>
+			
 			<td th:text="${status.index}"></td>
 			<td th:text="${status.count}"></td>
 			<td th:text="${status.size}"></td>
+			
 			<td th:text="${status.even}"></td>
 			<td th:text="${status.odd}"></td>
 			<td th:text="${status.first}"></td>
 			<td th:text="${status.last}"></td>
 		</tr>
 	</table>
+	
+	<!-- 시퀀스 생성 후 반복문 -->
+	<th:block th:each="num : ${#numbers.sequence(1,5)}">
+		<div th:text="${num}"></div>
+	</th:block>
 </body>
 </html>
 
