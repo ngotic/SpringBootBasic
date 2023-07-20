@@ -22,7 +22,7 @@ spring:  datasource:
       
   jpa:
     hibernate :
-      ddl-auto: create #create update none
+      ddl-auto: update #create update none // create하면 새로만들고 update하면 변경만 그러니까 조심 
       naming :
         physical-strategy : org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true  

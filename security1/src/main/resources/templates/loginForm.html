@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<link rel="stylesheet" href="https://me2.do/5BvBFJ57">
+<head>
+<meta charset="UTF-8">
+<title>로그인 페이지</title>
+</head>
+<body>
+<h1>로그인 페이지</h1>
+<hr>
+
+<!-- 
+	이렇게 /login으로 전달되면 IoC로 등록된 것 중에서 UserDetailsService에서 찾는다.
+	찾으면 loadUserByUsername을 호출한다. 그 때 username을 가지고 와서 처리가 되는 것이다. 
+-->
+<form action="/login" method="POST">
+	<input type="text" name="username" placeholder="Username"><br>
+	<input type="password" name="password" placeholder="Password"><br>
+	<button>로그인</button>
+</form>
+
+
+<a href="/joinForm">회원가입을 아직 하지 않으셨나요?</a>
+</body>
+</html>
