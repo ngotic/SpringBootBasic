@@ -2,6 +2,7 @@ package com.cos.security1.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -47,6 +48,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled= true, 
+							prePostEnabled=true) // 이게 있는데...  Secured 어노테이션 활성화를 시켜준다. 얘가.
+
+//prePostEnabled 이걸 또 달면 @preAuthorize라는 어노테이션을 활성화한다.  
+// 뿐만 아니라 @postAuthorize도 활성화시킨다. 
+
 public class SecurityConfig {
 	
 	@Bean
@@ -58,7 +65,10 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.authorizeRequests()
-		.antMatchers("/user/**").authenticated() // 이쪽으로 들어오면 인증이 필요해~ > authenticated 붙여서 
+		.antMatchers("/user/**").authenticated() 
+		// 이쪽으로 들어오면 인증이 필요해~ > authenticated 붙여서 여기는 인증만 되면 들어가고 밑에 두줄은 아무나 못들어간다.
+		
+		                       // 어드민도, 관리자도 둘다 OK 
 		.antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')") // 둘중하나 사지고 있으면 OK 
 		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')") // 어드맨은 한개만 
 		.anyRequest().permitAll()  // 다른 요청은 permitAll

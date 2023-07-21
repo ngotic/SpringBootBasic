@@ -24,7 +24,10 @@ public class PrincipalDetailsServce implements UserDetailsService{ // 그래서 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//                                여기 username은 뷰단 input 태그에서 username으로 받아와야 여기랑 맞다. 
 						// JPA 규칙으로 정의하면 됨
+		
+		System.out.println(username);
 		User userEntity = userRepository.findByUsername(username);
+		System.out.println(">>"+userEntity);
 		
 		if(userEntity != null) {
 			return new PrincipalDetails(userEntity); 

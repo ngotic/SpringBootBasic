@@ -83,16 +83,13 @@ public class PrincipalDetails implements UserDetails{
 
 	@Override  // 너무 오래 안들어오면 ... 만료되니까 ? 
 	public boolean isCredentialsNonExpired() { // 계정의 패스워드가 만료되지 않았는지를 리턴한다. (true를 리턴하면 패스워드가 만료되지 않음)
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() { // 
 		// 이 계정이 활성화되어있니? true > 사용가능하다. 
-		
-		
 		// 우리 사이트 !! 1년 동안 회원이 로그인을 안하면!! 휴먼 계정으로 하기로 함.
-		
 		// 현재시간 - 로그인시간 => 1년을 초과하면 return false; > 이런식으로도 할 수 있는데 당장은 하지 않을 것이다.
 		// user.getLoginDate(); 이렇게 꺼내서 관리가 가능
 		

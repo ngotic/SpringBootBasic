@@ -1,6 +1,8 @@
 package com.cos.security1.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +44,6 @@ public class IndexController {
 		return "manager";
 	}
 	
-	// 
 	@GetMapping("/loginForm")
 	public String loginForm() {
 		return "loginForm";
@@ -65,8 +66,30 @@ public class IndexController {
 		return "redirect:/loginForm";
 	}
 	
+	// 만약에 info에서 권한 걸려서 못들어가져서 로그인 페이지로 빠지고 로그인하면 다시 info로 redirect하는 흐름이다. 
+	
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/info") // 그냥 가진다. 이 주소를 시큐리티 설정에서 아무런 권한 처리를 안해서 그렇다.
+	public @ResponseBody String info() {
+		return "개인정보";
+	}
+	// 저 Secured를 거니까 로그인 페이지로 빠진다. 얘는 특정 메서드에 간단하게 걸고싶다면 얘로 걸면된다.
+
+	// @PreAuthorize는 이 data라는 메서드가 실행되기 직전에 실행된다. > 얘는 hasRole을 사용해서 권한을 표시한다. 
+	//@Secured("ROLE_ADMIN")
+	@PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+	// @PostAuthorize > 근데 이건 쓸일이 별로 없다. 거의 preAuthorize만 쓴다. 라는 것도 있다. 얘는 함수가 끝나고 난 뒤에 뭘 하는거다. 
+	@GetMapping("/data")
+	public @ResponseBody String data() {
+		return "데이터정보";
+	}
 //	@GetMapping("/joinProc")
 //	public @ResponseBody String joinProc() {
 //		return "회원가입 완료됨!";
 //	}
 }
+
+
+// 정리하면 
+// 1. 글로벌로 걸기
+// 2. 글로벌로 안걸었다면 애너테이션 기반으로 권한 걸기 
