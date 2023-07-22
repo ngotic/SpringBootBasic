@@ -13,7 +13,7 @@ import com.cos.security1.model.User;
 import com.cos.security1.repository.UserRepository;
 
 @Controller //View를 리턴하겠다
-public class IndexController {
+public class IndexController { 
 	
 	@Autowired 
 	private UserRepository userRepository;

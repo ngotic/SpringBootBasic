@@ -24,6 +24,8 @@ public class User {
 	private String role; // ROLE_USER, ROLE_ADMIN // 근데 여러개 넣을 수 있으면 좋은데...
 	
 	// private Timestamp loginDate; // 이런 칼럼이 있으면 로그인할 때마다 날짜를 찎는데 > 적지마라 
+	private String provider;   // 여기엔 google
+	private String providerId; // 숫자같은거 넣는다.  
 	
 	@CreationTimestamp
 	private Timestamp createDate;
