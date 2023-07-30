@@ -3,12 +3,17 @@ package com.cos.security1.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cos.security1.auth.PrincipalDetails;
 import com.cos.security1.model.User;
 import com.cos.security1.repository.UserRepository;
 
@@ -21,6 +26,36 @@ public class IndexController {
 	@Autowired 
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	
+	@GetMapping("/test/login")
+	public @ResponseBody String testLogin(Authentication authentication, //DI 의존성 주입
+			//@AuthenticationPrincipal UserDetails userDetails) { 
+			@AuthenticationPrincipal PrincipalDetails userDetails) {
+		System.out.println("/test/login ==============");
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal(); 
+		// 리턴 타입 오브젝트라 > 이걸 다운 캐스팅으로 받아서 처리하고 
+		
+		// 그다음에 getUser로 처리한다. 
+		System.out.println("authentication : "+ principalDetails.getUser());// 리턴 타입이 오브젝트다.
+		System.out.println("userDetails : "+ userDetails.getUser());// 이렇게 저장하고 테스트 해본다.  
+		return "세션 정보 확인하기";
+	}
+	
+	@GetMapping("/test/oauth/login")
+	public @ResponseBody String testOAuthLogin(
+			Authentication authentication,
+			@AuthenticationPrincipal OAuth2User oauth) {
+		System.out.println("/test/oauth/login ==============");
+		OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal(); 
+		// 리턴 타입 오브젝트라 > 이걸 다운 캐스팅으로 받아서 처리하고 
+		
+		// 그다음에 getUser로 처리한다. 
+		System.out.println("authentication : "+ oauth2User.getAttributes());// 리턴 타입이 오브젝트다.
+		System.out.println("oauth2User :" + oauth.getAttributes());
+		return "OAuth 세션 정보 확인하기";
+	}
+	
+	
 	//localhost:8080/
 	//localhost:8080
 	@GetMapping({"","/"})
@@ -32,7 +67,7 @@ public class IndexController {
 		//"src/main/resources/template/index.mustache" 이렇게 찾는다.
 	}
 	@GetMapping("/user")
-	public @ResponseBody String user() {
+	public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 		return "user";
 	}
 	@GetMapping("/admin")

@@ -14,17 +14,25 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		System.out.println("getClientRegistration : "+ userRequest.getClientRegistration()); // 이런게 있다.
+		                                                       // registrationId로 어떤 OAuth로 로그인했는지 확인이 가능하다. 
 		System.out.println("getAccessToken : "+ userRequest.getAccessToken().getTokenValue()); // 이런게 있다.
+		                                     // 이 토큰은 지금 별로 중요하지 않는다. 
 		System.out.println("getAttributes : "+ super.loadUser(userRequest).getAttributes()); // 이런게 있다.
+		// 구글로그인 버튼 클릭 -> 구글로그인창 -> 로그인 완료 -> code 리턴(OAuth-Client라이브러리) - AccessToken 요청 
+		// 딱 여기까지가 userRequset 정보이다. 
+		// super.loadUser의 역할을 알아야 한다. > 
+		// userRequest 정보로 -> loadUser함수 호출 -> 구글로 부터 회원프로필을 받아야한다. (loadUser함수다) -> 회원프로필 
+		
+		OAuth2User oauth2User = super.loadUser(userRequest);
 		return super.loadUser(userRequest);
 	}
+	// getClientRegistration 라는 것은 우리 서버의 기본 정보들이 들어가 있다. 클라이언트 아이디, OAuth의 이름 등 
+	// 크게 중요한 것은 아니다.
 	
 	// 여기는 코드를 받는게 아니라 코드를 통해 액세스토큰을 받고 사용자 프로필 정보도 받은 상태이다.
-	
 	// 요게 accessToken이다. 
 	
 	// ya29.a0AbVbY6Ny3erGwn8Jc7DxJPKLW6e9mFvggMwFVw0Lxzvk0lB2dbEqqWFd04RbUexnGRE2q_vHUTtwjmoPhS5-xj6m9o_SX7NyPSVVJ83CeaSEvMdxj0-JLoSZMYjwcCHcrtYldvQnAEWYSadpjDzcRmVEDMOeCwaCgYKAYYSARMSFQFWKvPl2lzJibrz1X6fVNg1EgwIng0165
-	
 	
 	//getClientRegistration : ClientRegistration{registrationId='google', clientId='494348329764-k3r1mh1l9ds1pptug84n7q2cu9b5bm0u.apps.googleusercontent.com', clientSecret='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', clientAuthenticationMethod=org.springframework.security.oauth2.core.ClientAuthenticationMethod@4fcef9d3, authorizationGrantType=org.springframework.security.oauth2.core.AuthorizationGrantType@5da5e9f3, redirectUri='{baseUrl}/{action}/oauth2/code/{registrationId}', scopes=[email, profile], providerDetails=org.springframework.security.oauth2.client.registration.ClientRegistration$ProviderDetails@3160e7e7, clientName='Google'}
 	//getAccessToken : org.springframework.security.oauth2.core.OAuth2AccessToken@f3f0f557

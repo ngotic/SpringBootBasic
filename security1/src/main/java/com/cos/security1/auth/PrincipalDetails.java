@@ -2,11 +2,15 @@ package com.cos.security1.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.cos.security1.model.User;
+
+import lombok.Data;
 
 // 시큐리티가 /login 주소 요청이 오면 낚아채서 로그인을 진행시킨다. 
 // 로그인을 진행이 완료가 되면 시큐리티 session을 만들어준다. 
@@ -29,7 +33,8 @@ import com.cos.security1.model.User;
 // Authentication을 만들어서 이 객체를 넣어야 하는데 어떻게 만드나? 
 
 // 얘는 일단 어노테이션 없음 
-public class PrincipalDetails implements UserDetails{
+@Data
+public class PrincipalDetails implements UserDetails, OAuth2User{
 
 	
 	// Override하게 되면 이렇게 쭉 나온다. 
@@ -38,7 +43,6 @@ public class PrincipalDetails implements UserDetails{
 	public PrincipalDetails(User user) {
 		this.user = user;
 	}
-	
 	
 	
 	// 해당 User의 권한을 리턴하는 곳!! 
@@ -92,8 +96,21 @@ public class PrincipalDetails implements UserDetails{
 		// 우리 사이트 !! 1년 동안 회원이 로그인을 안하면!! 휴먼 계정으로 하기로 함.
 		// 현재시간 - 로그인시간 => 1년을 초과하면 return false; > 이런식으로도 할 수 있는데 당장은 하지 않을 것이다.
 		// user.getLoginDate(); 이렇게 꺼내서 관리가 가능
-		
 		return true;
+	}
+
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

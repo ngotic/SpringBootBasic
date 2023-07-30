@@ -89,9 +89,10 @@ public class SecurityConfig {
 		.and()
 		.oauth2Login() //formLogin()과 유사한 방식이다. 그래서 이것은 뒤에 .loginPage("/loginForm"); 를 쓴다. 
 		.loginPage("/loginForm")
-		// 아래 두줄까지 추가해야한다. > 여기서 loadUser라는 함수에서 후처리가 된다. 
 		.userInfoEndpoint()
-		.userService(PrincipalDetailsService); // 이렇게 까지 로그인 페이지를 기존 로그인 페이지와 동일하게 해야 한다.
+		.userService(PrincipalDetailsService);
+		// 이렇게 까지 로그인 페이지를 기존 로그인 페이지와 동일하게 해야 한다.
+		// 아래 두줄까지 추가해야한다. > 여기서 loadUser라는 함수에서 후처리가 된다. 
 		
 		// 그래서 우리는 Controller에서 컨트롤러에 /login 유알엘을 처리하는 메서드를 안만들어도 된다.
 		
