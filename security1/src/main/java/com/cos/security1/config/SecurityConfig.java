@@ -49,25 +49,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 // ★★★ > 권장 방식 FilterChain을 Bean으로 등록하는 방식을 사용해야 한다.
 
+//prePostEnabled 이걸 또 달면 @preAuthorize라는 어노테이션을 활성화한다. 
+//이게 있는데...  Secured 어노테이션 활성화를 시켜준다. 얘가.
+//뿐만 아니라 @postAuthorize도 활성화시킨다. 
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled= true, 
-							prePostEnabled=true) // 이게 있는데...  Secured 어노테이션 활성화를 시켜준다. 얘가.
-
-//prePostEnabled 이걸 또 달면 @preAuthorize라는 어노테이션을 활성화한다.  
-// 뿐만 아니라 @postAuthorize도 활성화시킨다. 
-
+							prePostEnabled=true) 
 public class SecurityConfig {
-	
 	
 	@Autowired 
 	private PrincipalOauth2UserService PrincipalDetailsService;
 	
-	
-	@Bean
-	BCryptPasswordEncoder encodePwd() {
-		return new BCryptPasswordEncoder();
-	} 
+//	@Bean
+//	BCryptPasswordEncoder encodePwd() {
+//		return new BCryptPasswordEncoder();
+//	} 
 	
 	@Bean 
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

@@ -39,11 +39,18 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	
 	// Override하게 되면 이렇게 쭉 나온다. 
 	private User user; // 콤포지션 
+	private Map<String, Object> attributes;
 	
+	// 일반 로그인
 	public PrincipalDetails(User user) {
 		this.user = user;
 	}
 	
+	// OAuth 로그인 
+	public PrincipalDetails(User user, Map<String, Object> attributes) {
+		this.user = user;
+		this.attributes = attributes;
+	}
 	
 	// 해당 User의 권한을 리턴하는 곳!! 
 	@Override
@@ -102,15 +109,13 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 
 	@Override
 	public Map<String, Object> getAttributes() {
-		// TODO Auto-generated method stub
-		return null;
+		return attributes;
 	}
 
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return (String)attributes.get("sub");
 	}
 
 }
